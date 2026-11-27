@@ -65,29 +65,46 @@ Los valores numéricos, como la estatura y la masa, son recibidos como cadenas d
 
 La API utiliza paginación para entregar los personajes en diferentes páginas.
 
-La respuesta incluye el campo `next`, que permite identificar la URL de la siguiente página de resultados. Cuando no existen más resultados, este campo puede ser `null`.
+Al consultar `people/?page=9`, se observó que la respuesta contiene:
 
-La aplicación utilizará este campo para determinar si es posible continuar cargando más personajes.
+- `count`: 82 personajes.
+- `next`: null.
+- `previous`: URL de la página anterior.
+
+El campo `next` permite identificar si existe una página siguiente. Cuando su valor es `null`, significa que no hay más resultados disponibles para avanzar.
+
+La aplicación utilizará este campo para controlar la paginación y evitar solicitar páginas inexistentes.
 
 
 ## 3. Identificadores de personajes
 
-Los personajes cuentan con identificadores que permiten consultar sus detalles individuales.
+Se realizó una consulta al endpoint `people/17/`, obteniendo la siguiente respuesta:
 
-La API permite acceder a un personaje mediante una URL específica, por ejemplo:
+```json
+{
+  "detail": "Not found."
+}
 
-`https://swapi.dev/api/people/17/`
+- El resultado indica que el recurso solicitado no está disponible en la API.
 
-La respuesta de este endpoint será utilizada para analizar el comportamiento de los identificadores y la disponibilidad de los recursos.
+- Por lo tanto, no se debe asumir que todos los identificadores numéricos de personajes son válidos. La aplicación deberá manejar correctamente las respuestas de recursos inexistentes y evitar depender de IDs consecutivos.
 
 
 ## 4. Orden de las películas
+El endpoint films/ devuelve seis películas. En la consulta realizada se observó que el listado comienza con el Episodio IV (A New Hope), por lo que los resultados no llegan ordenados cronológicamente por número de episodio.
 
-El endpoint `films/` proporciona información sobre las películas de Star Wars.
+El orden recibido por la API es:
 
-Los datos recibidos serán organizados para presentar las películas en orden ascendente según el número de episodio, independientemente del orden en el que sean entregadas por la API.
+IV, V, VI, I, II, III.
 
----
+Para Holocrón Galáctico, las películas se mostrarán ordenadas de forma ascendente según el campo episode_id, presentando los episodios del I al VI.
+
+Este ordenamiento se realizará en la capa de datos correspondiente y no dentro de los Composables de la interfaz.
 
 
+- **3. Identificadores de personajes** → título independiente.
+- El JSON → dentro de su bloque correctamente delimitado.
+- **4. Orden de las películas** → nuevo título independiente, con separación visual.
+- Sin la sección adicional `Lo importante`.
 
+No necesitas modificar ninguna configuración de Android Studio ni del proyecto. Es únicamente una limpieza del contenido de `README.md`.
