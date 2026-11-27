@@ -172,6 +172,21 @@ En Holocrón Galáctico, solicitar `people/17/` puede producir un error 404 si e
 
 De esta manera, la aplicación podrá diferenciar los problemas de conectividad de los errores del servidor y ofrecer mensajes adecuados al usuario.
 
+- Sin internet ->	IOException
+- Solicitar people/17/ ->	HttpException — 404
+
+- Error del servidor -> HttpException — 5xx
+
+¿Qué ventaja tiene Result<T>?
+
+Permite devolver el resultado de una operación de forma controlada, representando tanto el éxito como el error. Así, el ViewModel puede gestionar el resultado sin tener que recibir excepciones inesperadas directamente.
+
+Mensajes para el usuario:
+- Sin internet: No hay conexión a internet. Verifica tu conexión e inténtalo nuevamente.
+- Recurso no encontrado: No encontramos la información solicitada.
+- Error del servidor: El servidor presenta problemas. Inténtalo nuevamente más tarde.
+
+
 **Fuentes:**
 - https://developer.android.com/topic/architecture
 - https://kotlinlang.org/docs/exceptions.html
